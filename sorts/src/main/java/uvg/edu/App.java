@@ -37,6 +37,10 @@ public class App
         Integer[] quickArray = array.clone();
         SortingAlgorithms.quickSort(quickArray, comparator);
         System.out.println("Quick Sort: " + Arrays.toString(quickArray));
+
+        Integer[] shellArray = array.clone();
+        SortingAlgorithms.shellSort(shellArray, comparator);
+        System.out.println("Shell Sort: " + Arrays.toString(shellArray));
     }
 }
 

@@ -70,4 +70,18 @@ public class SortingAlgorithms {
         return i + 1;
     }
 
+    public static <T> void shellSort(T[] array, IComparator<T> comparator) {
+        int n = array.length;
+    
+        for (int gap = n / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < n; i++) {
+                T temp = array[i];
+                int j;
+                for (j = i; j >= gap && comparator.Compare(array[j - gap], temp) > 0; j -= gap) {
+                    array[j] = array[j - gap];
+                }
+                array[j] = temp;
+            }
+        }
+    }
 }
