@@ -41,6 +41,14 @@ public class App
         Integer[] shellArray = array.clone();
         SortingAlgorithms.shellSort(shellArray, comparator);
         System.out.println("Shell Sort: " + Arrays.toString(shellArray));
+
+        Integer[] radixArray = array.clone();
+        SortingAlgorithms.radixSort(radixArray);
+        System.out.println("Radix Sort: " + Arrays.toString(radixArray));
+
+        Integer[] bucketArray = array.clone();
+        SortingAlgorithms.bucketSort(bucketArray);
+        System.out.println("Bucket Sort: " + Arrays.toString(bucketArray));
     }
 }
 

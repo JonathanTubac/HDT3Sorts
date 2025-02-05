@@ -1,5 +1,9 @@
 package uvg.edu;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import uvg.edu.Controller.IComparator;
 
 public class SortingAlgorithms {
@@ -82,6 +86,82 @@ public class SortingAlgorithms {
                 }
                 array[j] = temp;
             }
+        }
+    }
+
+        public static void radixSort(Integer[] array) {
+        if (array.length == 0) return;
+
+        int max = Arrays.stream(array).max(Integer::compare).get();
+
+        for (int exp = 1; max / exp > 0; exp *= 10) {
+            countingSortByDigit(array, exp);
+        }
+    }
+
+    private static void countingSortByDigit(Integer[] array, int exp) {
+        int n = array.length;
+        Integer[] output = new Integer[n];
+        int[] count = new int[10];
+
+        Arrays.fill(count, 0);
+
+        for (int i = 0; i < n; i++) {
+            int digit = (array[i] / exp) % 10;
+            count[digit]++;
+        }
+
+        for (int i = 1; i < 10; i++) {
+            count[i] += count[i - 1];
+        }
+
+        for (int i = n - 1; i >= 0; i--) {
+            int digit = (array[i] / exp) % 10;
+            output[count[digit] - 1] = array[i];
+            count[digit]--;
+        }
+
+        System.arraycopy(output, 0, array, 0, n);
+    }
+        public static void bucketSort(Integer[] array) {
+        if (array.length == 0) return;
+
+        int max = Arrays.stream(array).max(Integer::compare).get();
+        int min = Arrays.stream(array).min(Integer::compare).get();
+
+        int numBuckets = 10;
+        List<List<Integer>> buckets = new ArrayList<>(numBuckets);
+
+        for (int i = 0; i < numBuckets; i++) {
+            buckets.add(new ArrayList<>());
+        }
+
+        for (int num : array) {
+            int bucketIndex = (int) ((num - min) * (numBuckets - 1) / (max - min));
+            buckets.get(bucketIndex).add(num);
+        }
+
+        for (List<Integer> bucket : buckets) {
+            insertionSort(bucket);
+        }
+
+        int index = 0;
+        for (List<Integer> bucket : buckets) {
+            for (int num : bucket) {
+                array[index++] = num;
+            }
+        }
+    }
+
+    private static void insertionSort(List<Integer> list) {
+        for (int i = 1; i < list.size(); i++) {
+            int key = list.get(i);
+            int j = i - 1;
+            while (j >= 0 && list.get(j) > key) {
+                list.set(j + 1, list.get(j));
+                j--;
+            }
+            list.set(j + 1, key);
         }
     }
 }
