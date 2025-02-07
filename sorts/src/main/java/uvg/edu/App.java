@@ -23,7 +23,7 @@ public class App {
     public static void main(String[] args) {
         // Generate 3000 random numbers and save them to a file
         String fileName = "numeros.txt";
-        generateRandomNumbers(fileName, 3000);
+        generateRandomNumbers(fileName, 100000);
 
         // Read numbers from the file and store them in an array
         Integer[] array = readNumbersFromFile(fileName);
